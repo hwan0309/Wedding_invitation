@@ -87,7 +87,7 @@ export const config: WeddingConfig = {
       },
     ],
   },
-  date: "2027-05-15T12:30:00",
+  date: "2026-12-25T12:30:00",
   venue: {
     name: "OO웨딩홀",
     hall: "3층 그랜드홀",

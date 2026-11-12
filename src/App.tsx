@@ -1,5 +1,6 @@
 import { config } from "./config";
 import Cover from "./components/Cover";
+import Greeting from "./components/Greeting";
 
 function App() {
   const { groom, bride, date, venue, coverImage } = config;
@@ -12,6 +13,7 @@ function App() {
         venueName={venue.name}
         image={coverImage}
       />
+      <Greeting message={config.greeting} groom={groom} bride={bride} />
     </main>
   );
 }
