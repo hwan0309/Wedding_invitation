@@ -1,3 +1,5 @@
+import { formatWeddingDate } from "../utils/date";
+
 interface CoverProps {
   groomName: string;
   brideName: string;
@@ -13,17 +15,7 @@ export default function Cover({
   venueName,
   image,
 }: CoverProps) {
-  const d = new Date(date);
-  const dateText = d.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-  });
-  const timeText = d.toLocaleTimeString("ko-KR", {
-    hour: "numeric",
-    minute: "2-digit",
-  });
+  const { dateText, timeText } = formatWeddingDate(date);
 
   return (
     <section className="text-center">
