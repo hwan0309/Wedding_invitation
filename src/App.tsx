@@ -1,13 +1,17 @@
-import "./App.css";
 import { config } from "./config";
+import Cover from "./components/Cover";
 
 function App() {
-  const { groom, bride } = config;
+  const { groom, bride, date, venue, coverImage } = config;
   return (
-    <main className="mx-auto max-w-md p-6 text-center">
-      <h1 className="text-3xl font-bold">
-        {groom.person.name} ♥ {bride.person.name}
-      </h1>
+    <main className="mx-auto max-w-md min-h-screen bg-white">
+      <Cover
+        groomName={groom.person.name}
+        brideName={bride.person.name}
+        date={date}
+        venueName={venue.name}
+        image={coverImage}
+      />
     </main>
   );
 }
