@@ -1,4 +1,5 @@
 import { getCalendarDays, getDday } from "../utils/date";
+import SectionTitle from "./SectionTitle";
 
 interface CalendarProps {
   date: string;
@@ -19,7 +20,7 @@ export default function Calendar({ date }: CalendarProps) {
 
   return (
     <section className="px-8 py-16 text-center">
-      <p className="text-xs tracking-[0.3em] text-gray-500">CALENDAR</p>
+      <SectionTitle>CALENDAR</SectionTitle>
       <p className="mt-4 text-lg font-medium">
         {year}년{month}월
       </p>

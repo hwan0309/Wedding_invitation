@@ -1,4 +1,5 @@
 import { formatWeddingDate } from "../utils/date";
+import SectionTitle from "./SectionTitle";
 
 interface CoverProps {
   groomName: string;
@@ -25,9 +26,7 @@ export default function Cover({
         className="w-full aspect-3/4 object-cover"
       />
       <div className="py-10">
-        <p className="text-xs tracking-[0.3em] text-gray-500">
-          WEDDING INVITTATION
-        </p>
+        <SectionTitle>WEDDING INVITTATION</SectionTitle>
         <h1 className="mt-4 text-2xl font-semibold">
           {groomName} <span className="mx-2 text-gray-400">&</span> {brideName}
         </h1>

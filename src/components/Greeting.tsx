@@ -1,4 +1,5 @@
 import type { Side } from "../config";
+import SectionTitle from "./SectionTitle";
 
 interface GreetingProps {
   message: string;
@@ -9,7 +10,7 @@ interface GreetingProps {
 export default function Greeting({ message, groom, bride }: GreetingProps) {
   return (
     <section className="px-8 py-16 text-center">
-      <p className="text-xs tracking-[0.3em] text-gray-500">INVITATION</p>
+      <SectionTitle>INVITATION</SectionTitle>
       <p className="mt-8 whitespace-pre-line leading-8 text-gray-700">
         {message}
       </p>
