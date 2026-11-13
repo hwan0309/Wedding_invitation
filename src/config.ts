@@ -99,10 +99,13 @@ export const config: WeddingConfig = {
 이제 같은 길을 함께 걸어가려 합니다.
 귀한 걸음 하시어 축복해 주시면
 더없는 기쁨으로 간직하겠습니다.`,
-  coverImage: "/images/cover.jpg",
+  coverImage: "/images/5.jpg",
   gallery: [
-    "/images/gallery-1.jpg",
-    "/images/gallery-2.jpg",
-    "/images/gallery-3.jpg",
+    "/images/1.jpg",
+    "/images/2.jpg",
+    "/images/3.jpg",
+    "/images/4.jpg",
+    "/images/5.jpg",
+    "/images/6.jpg",
   ],
 };
