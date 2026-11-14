@@ -9,17 +9,17 @@ function AccountRow({ account }: { account: Account }) {
   const handleCopy = async () => {
     await copyText(`${account.bank} ${account.number}`);
     setCopied(true);
-    setTimeout(() => setCopied(false), 500);
+    setTimeout(() => setCopied(false), 1000);
   };
 
   return (
-    <div className="flex item-center justify-between py-3">
+    <div className="flex items-center justify-between py-3">
       <div className="text-left">
         <p className="text-sm text-gray-400">
           {account.label} · {account.holder}
         </p>
         <p className="text-gray-700">
-          {account.bank} · {account.number}
+          {account.bank} {account.number}
         </p>
       </div>
       <button
@@ -77,14 +77,8 @@ export default function AccountSection({ groom, bride }: AccountSectionProps) {
     <section className="px-8 py-16 text-center">
       <SectionTitle>ACCOUNT</SectionTitle>
       <p className="mt-4 text-sm text-gray-500">마음 전하실 곳</p>
-      <AccountGroup
-        title="신랑측 계좌번호"
-        accounts={groom.accounts}
-      ></AccountGroup>
-      <AccountGroup
-        title="신부측 계좌번호"
-        accounts={bride.accounts}
-      ></AccountGroup>
+      <AccountGroup title="신랑측 계좌번호" accounts={groom.accounts} />
+      <AccountGroup title="신부측 계좌번호" accounts={bride.accounts} />
     </section>
   );
 }
