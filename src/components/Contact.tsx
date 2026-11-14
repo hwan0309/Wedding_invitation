@@ -35,13 +35,13 @@ interface ContactProps {
 
 export default function Contact({ groom, bride }: ContactProps) {
   return (
-    <section className="bg-gray-50 px-8 py-16">
+    <section className="bg-white px-8 py-16">
       <div className="text-center">
         <SectionTitle>CONTACT</SectionTitle>
       </div>
 
       <div className="mt-8">
-        <p className="text-sm font medium text-gray-500">신랑측</p>
+        <p className="text-sm font-medium text-gray-500">신랑측</p>
         <div className="divide-y divide-gray-200">
           <ContactRow label="신랑" person={groom.person} />
           <ContactRow label="아버지" person={groom.father} />
@@ -49,7 +49,7 @@ export default function Contact({ groom, bride }: ContactProps) {
         </div>
       </div>
       <div className="mt-8">
-        <p className="text-sm font medium text-gray-500">신부측</p>
+        <p className="text-sm font-medium text-gray-500">신부측</p>
         <div className="divide-y divide-gray-200">
           <ContactRow label="신부" person={bride.person} />
           <ContactRow label="아버지" person={bride.father} />

@@ -10,7 +10,7 @@ import AccountSection from "./components/AccountSection";
 function App() {
   const { groom, bride, date, venue, coverImage } = config;
   return (
-    <main className="mx-auto max-w-md min-h-screen bg-white">
+    <main className="mx-auto max-w-md min-h-screen bg-rose-50 shadow-lg">
       <Cover
         groomName={groom.person.name}
         brideName={bride.person.name}
