@@ -4,6 +4,7 @@ import Greeting from "./components/Greeting";
 import WeddingInfo from "./components/WeddingInfo";
 import Calendar from "./components/Calendar";
 import Gallery from "./components/Gallery";
+import Contact from "./components/Contact";
 
 function App() {
   const { groom, bride, date, venue, coverImage } = config;
@@ -20,6 +21,7 @@ function App() {
       <WeddingInfo date={config.date} venue={config.venue} />
       <Calendar date={date} />
       <Gallery images={config.gallery} />
+      <Contact groom={groom} bride={bride} />
     </main>
   );
 }
