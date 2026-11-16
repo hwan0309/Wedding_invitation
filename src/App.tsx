@@ -7,6 +7,7 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import AccountSection from "./components/AccountSection";
 import Location from "./components/Location";
+import Share from "./components/Share";
 
 function App() {
   const { groom, bride, date, venue, coverImage } = config;
@@ -26,6 +27,10 @@ function App() {
       <Contact groom={groom} bride={bride} />
       <AccountSection groom={groom} bride={bride} />
       <Location venue={venue} />
+      <Share
+        title={`${groom.person.name} ♥ ${bride.person.name} 결혼합니다`}
+        description="2026년 12월 25일 금요일 오후 12시 30분, OO웨딩홀"
+      />
     </main>
   );
 }
