@@ -15,7 +15,7 @@ function App() {
   const { groom, bride, date, venue, coverImage } = config;
 
   return (
-    <main className="mx-auto max-w-md min-h-screen space-y-4 bg-rose-50 p-4">
+    <main className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
       <Cover
         groomName={groom.person.name}
         brideName={bride.person.name}

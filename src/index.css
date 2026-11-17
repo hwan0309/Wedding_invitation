@@ -2,9 +2,10 @@
 
 @theme {
   --color-base: #fff1f2;
-  --color-alt: #ffe4e6;
+  --font-sans: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-serif: "Gowun Batang", serif;
 }
 
 body {
-  background-color: #ffe4e6;
+  background-color: var(--color-base);
 }
