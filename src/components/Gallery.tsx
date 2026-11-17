@@ -1,53 +1,109 @@
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useSwipe } from "../hooks/useSwipe";
 import SectionTitle from "./SectionTitle";
+
+interface NavButtonProps {
+  direction: "prev" | "next";
+  onClick: () => void;
+}
+
+function NavButton({ direction, onClick }: NavButtonProps) {
+  const isPrev = direction === "prev";
+  return (
+    <button
+      type="button"
+      aria-label={isPrev ? "이전 사진" : "다음 사진"}
+      className={`absolute top-1/2 -translate-y-1/2 p-3 text-3xl text-white drop-shadow ${
+        isPrev ? "left-1" : "right-1"
+      }`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
+      {isPrev ? "‹" : "›"}
+    </button>
+  );
+}
 
 interface GalleryProps {
   images: string[];
 }
 
 export default function Gallery({ images }: GalleryProps) {
-  const [selected, setSelected] = useState<number | null>(null);
+  const total = images.length;
+  const [current, setCurrent] = useState(0); // 본문에 보이는 사진
+  const [selected, setSelected] = useState<number | null>(null); // 모달에 보이는 사진
 
-  const touchStartX = useRef(0);
-  const showPrev = () =>
-    setSelected((prev) =>
-      prev === null ? null : (prev - 1 + images.length) % images.length,
-    );
+  const prev = () => setCurrent((c) => (c - 1 + total) % total);
+  const next = () => setCurrent((c) => (c + 1) % total);
 
-  const showNext = () =>
-    setSelected((prev) => (prev === null ? null : (prev + 1) % images.length));
+  const modalPrev = () =>
+    setSelected((s) => (s === null ? null : (s - 1 + total) % total));
+  const modalNext = () =>
+    setSelected((s) => (s === null ? null : (s + 1) % total));
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
+  const inlineSwipe = useSwipe(prev, next);
+  const modalSwipe = useSwipe(modalPrev, modalNext);
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-    if (diff > 50)
-      showPrev(); // 이전사진 (우측으로 밀기)
-    else if (diff < -50) showNext(); //다음사진 (좌측으로 밀기)
-  };
+  // 모달이 열려 있는 동안 뒤 페이지 스크롤 막기
+  useEffect(() => {
+    document.body.style.overflow = selected !== null ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
+
   return (
     <section className="px-4 py-16 text-center">
       <SectionTitle>GALLERY</SectionTitle>
-      <div className="mt-8 grid grid-cols-3 gap-1">
+
+      {/* 큰 사진 한 장 */}
+      <div className="relative mt-8" {...inlineSwipe}>
+        <button
+          type="button"
+          className="block w-full"
+          onClick={() => setSelected(current)}
+        >
+          <img
+            src={images[current]}
+            alt={`웨딩 사진 ${current + 1}`}
+            className="aspect-3/4 w-full object-cover"
+          />
+        </button>
+        <NavButton direction="prev" onClick={prev} />
+        <NavButton direction="next" onClick={next} />
+        <p className="absolute bottom-3 right-3 rounded-full bg-black/40 px-2 py-0.5 text-xs text-white">
+          {current + 1} / {total}
+        </p>
+      </div>
+
+      {/* 썸네일 줄 */}
+      <div className="mt-2 flex gap-1 overflow-x-auto">
         {images.map((src, i) => (
-          <button key={src} type="button" onClick={() => setSelected(i)}>
-            <img
-              src={src}
-              alt={`웨딩 사진 ${i + 1}`}
-              className="aspect-square w-full object-cover"
-            />
+          <button
+            key={src}
+            type="button"
+            onClick={() => setCurrent(i)}
+            className={`shrink-0 transition-opacity ${
+              i === current ? "opacity-100" : "opacity-40"
+            }`}
+          >
+            <img src={src} alt="" className="size-14 object-cover" />
           </button>
         ))}
       </div>
 
+      <p className="mt-3 text-xs text-gray-400">
+        사진을 누르면 크게 볼 수 있어요
+      </p>
+
+      {/* 전체 화면 모달 */}
       {selected !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
           onClick={() => setSelected(null)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          {...modalSwipe}
         >
           <img
             src={images[selected]}
@@ -61,32 +117,12 @@ export default function Gallery({ images }: GalleryProps) {
             className="absolute right-4 top-4 text-3xl text-white"
             onClick={() => setSelected(null)}
           >
-            x
+            ×
           </button>
-          <button
-            type="button"
-            aria-label="이전 사진"
-            className="absolute left-2 top-1/2 -translate-y-1/2 p-3 text-3xl text-white/70"
-            onClick={(e) => {
-              e.stopPropagation();
-              showPrev();
-            }}
-          >
-            ‹
-          </button>
-          <button
-            type="button"
-            aria-label="다음 사진"
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-3 text-3xl text-white/70"
-            onClick={(e) => {
-              e.stopPropagation();
-              showNext();
-            }}
-          >
-            ›
-          </button>
+          <NavButton direction="prev" onClick={modalPrev} />
+          <NavButton direction="next" onClick={modalNext} />
           <p className="absolute bottom-6 text-sm text-white/70">
-            {selected + 1} / {images.length}
+            {selected + 1} / {total}
           </p>
         </div>
       )}
