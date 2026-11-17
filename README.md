@@ -1,75 +1,135 @@
-# React + TypeScript + Vite
+# 💌 모바일 청첩장
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript로 직접 만든 모바일 청첩장입니다.
+`config.ts` 한 파일의 데이터만 바꾸면 누구의 청첩장이든 만들 수 있는 **템플릿 구조**로 설계했습니다.
 
-Currently, two official plugins are available:
+🔗 **배포 주소**: https://wedding-invitation-eta-virid-85.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+<p align="center">
+  <img src="./docs/cover.jpg" width="300" />
+</p>
 
-## React Compiler
+<br />
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 주요 기능
 
-## Expanding the ESLint configuration
+| 섹션          | 기능                                                            |
+| ------------- | --------------------------------------------------------------- |
+| 커버 · 인사말 | 신랑·신부 이름, 예식 일시, 혼주 정보                            |
+| 달력          | 예식 날짜로 달력 자동 생성, D-day 계산                          |
+| 갤러리        | 큰 사진 슬라이드 + 썸네일, 탭하면 전체 화면 보기, 좌우 스와이프 |
+| 연락하기      | 신랑·신부·혼주에게 전화 / 문자 바로 연결                        |
+| 계좌번호      | 신랑측 / 신부측 접기·펼치기, 계좌번호 복사                      |
+| 오시는 길     | 카카오맵 지도 + 마커, 카카오맵 길찾기 연결, 주소 복사           |
+| 공유하기      | 카카오톡 공유(피드 카드), 링크 복사, 링크 미리보기(OG 태그)     |
+| 방명록        | 로그인 없이 작성, 최신순 목록 (Supabase)                        |
+| 참석 여부     | 신랑측/신부측, 참석·불참, 인원, 식사 여부 제출 (Supabase)       |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<br />
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 기술 스택
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| 구분       | 사용 기술                            | 선택 이유                                                                                                       |
+| ---------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| 프레임워크 | React 19, TypeScript                 | 섹션 단위로 컴포넌트를 나누기 좋고, 청첩장 데이터를 타입으로 설계해 빠진 항목·잘못된 값을 작성 시점에 잡기 위해 |
+| 빌드       | Vite                                 | 설정이 단순하고 개발 서버가 빠름                                                                                |
+| 스타일     | Tailwind CSS v4                      | 모바일 화면의 여백·정렬을 빠르게 조정, `@theme`으로 색상·폰트를 한 곳에서 관리                                  |
+| DB         | Supabase                             | 서버 없이 방명록·참석 여부 저장, RLS로 권한 제어                                                                |
+| 외부 API   | Kakao Maps SDK, Kakao JavaScript SDK | 국내 하객 기준으로 가장 익숙한 지도·공유 수단                                                                   |
+| 배포       | Vercel                               | GitHub 푸시 시 자동 배포                                                                                        |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<br />
 
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 폴더 구조
 
 ```
+src/
+├─ components/      # 섹션별 화면 컴포넌트
+│  └─ SectionTitle.tsx   # 섹션 제목 공통 컴포넌트
+├─ hooks/
+│  └─ useSwipe.ts   # 좌우 스와이프 커스텀 훅
+├─ lib/
+│  └─ supabase.ts   # Supabase 클라이언트
+├─ utils/
+│  ├─ date.ts       # 날짜 포맷, D-day, 달력 칸 계산
+│  ├─ clipboard.ts  # 복사 기능
+│  └─ loadKakaoMap.ts    # 카카오맵 SDK 동적 로딩
+├─ types/
+│  └─ kakao.d.ts    # 카카오 SDK 전역 타입 선언
+├─ config.ts        # 청첩장 데이터 + 타입 정의
+└─ App.tsx          # 섹션 배치
+```
+
+**설계 원칙**
+
+- **데이터와 화면 분리**: 모든 내용은 `config.ts`에, 컴포넌트는 props로 받아 그리기만 합니다.
+- **화면 조각은 컴포넌트, 계산은 utils, 상태 로직은 hooks**로 나눴습니다.
+- 반복이 실제로 생겼을 때만 공통화했습니다. (`SectionTitle`, `useSwipe`, `copyText`)
+
+<br />
+
+## DB 설계 (Supabase)
+
+| 테이블      | 하객 권한   | 비고                                                         |
+| ----------- | ----------- | ------------------------------------------------------------ |
+| `guestbook` | 읽기 · 쓰기 | 수정·삭제 불가. 이름 20자, 메시지 300자 제한                 |
+| `rsvp`      | 쓰기만      | 다른 하객의 응답은 볼 수 없음. 신랑·신부는 대시보드에서 확인 |
+
+**권한을 테이블마다 다르게 둔 이유**
+
+- 앱에서 쓰는 Supabase 키는 브라우저에 그대로 노출되는 공개 키(publishable key)입니다. 키만으로는 누구나 요청을 보낼 수 있으므로, 실제 보호는 **RLS(Row Level Security)** 정책이 담당하도록 설계했습니다.
+- **방명록**은 모두가 함께 보는 공간이라 읽기·쓰기를 허용하되, 남의 글을 지우거나 고칠 수 없도록 수정·삭제 정책은 만들지 않았습니다.
+- **참석 여부**는 이름·인원·식사 여부가 담긴 정보라 신랑·신부만 봐야 합니다. 그래서 쓰기만 허용하고 읽기 권한은 부여하지 않았습니다. 이 때문에 저장 후 결과를 돌려받는 `.select()`를 붙이지 않고 insert만 수행합니다.
+- 입력값은 화면(`maxLength`, `trim`)과 DB(`check` 제약) **두 단계**에서 검증합니다. 화면의 제한은 우회할 수 있기 때문에 DB에서 한 번 더 막습니다.
+
+<br />
+
+## 실행 방법
+
+```bash
+npm install
+npm run dev
+```
+
+프로젝트 루트에 `.env.local` 파일이 필요합니다.
+
+```
+VITE_KAKAO_JS_KEY=카카오_JavaScript_키
+VITE_SUPABASE_URL=Supabase_Project_URL
+VITE_SUPABASE_PUBLISHABLE_KEY=Supabase_publishable_key
+```
+
+- 카카오 디벨로퍼스에서 **JavaScript SDK 도메인**과 **제품 링크 관리 > 웹 도메인**에 실행 주소를 등록해야 지도와 공유가 동작합니다.
+- 배포 시 Vercel 환경 변수에도 같은 값을 등록합니다.
+- `npm run dev`는 같은 와이파이의 휴대폰에서 바로 테스트할 수 있도록 `vite --host`로 설정되어 있습니다.
+
+<br />
+
+## 트러블슈팅
+
+### 1. 참석 여부 제출 시 400 에러 (`rsvp_meal_check`)
+
+- **문제**: 참석 여부를 제출하면 "전송하지 못했어요"만 표시됨
+- **원인 추적**: 에러를 `console.error`로 출력 → `23514 violates check constraint "rsvp_meal_check"` 확인 → Network 탭 Payload에서 보낸 값(`"undecided"`)은 정상임을 확인 → DB에 실제로 걸린 제약 조건을 조회하니 테이블 생성 시 오타(`'undefind'`)가 그대로 남아 있었음
+- **해결**: SQL Editor에서 저장(Save)만으로는 DB가 바뀌지 않으며, 이미 있는 테이블은 `create table`을 다시 실행해도 반영되지 않는다는 점을 확인. `alter table`로 제약 조건을 삭제 후 다시 생성
+- **배운 점**: 사용자에게는 친절한 문구를, 개발자에게는 원본 에러를 남겨야 원인을 빠르게 좁힐 수 있다. DB의 `check` 제약이 잘못된 데이터 저장을 실제로 막아준다는 것도 확인
+
+<br />
+
+## 성능 개선: 이미지 최적화
+
+청첩장은 하객 대부분이 **카카오톡 안에서, 모바일 데이터로** 여는 페이지라 첫 화면 로딩 속도가 중요합니다.
+
+| 항목                 | 개선 전          | 개선 후                   |
+| -------------------- | ---------------- | ------------------------- |
+| 이미지 총 용량 (8장) | 약 41MB          | 약 1.5MB                  |
+| 가장 큰 이미지       | 12MB (7728×5152) | 500KB 이하 (긴 변 1600px) |
+
+- 화면에 표시되는 최대 크기(모바일 폭 기준)를 고려해 **긴 변 1600px로 리사이즈**하고 JPG 품질을 조정해 압축했습니다.
+- 카카오톡 링크 미리보기 이미지는 권장 비율 **2:1(800×400)** 로 별도 제작했습니다.
+
+<br />
+
+## 이미지 출처
+
+샘플 사진: [Unsplash](https://unsplash.com), [Pexels](https://www.pexels.com)
