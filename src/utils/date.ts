@@ -37,7 +37,7 @@ export function getCalendarDays(date: string) {
 
   const days: (number | null)[] = [];
   for (let i = 0; i < firstWeekday; i++) days.push(null);
-  for (let i = 1; i < lastDate; i++) days.push(i);
+  for (let i = 1; i <= lastDate; i++) days.push(i);
 
   return { year, month: month + 1, day: d.getDate(), days };
 }

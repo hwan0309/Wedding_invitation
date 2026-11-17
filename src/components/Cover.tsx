@@ -27,12 +27,11 @@ export default function Cover({
       />
       <div className="py-10">
         <SectionTitle>WEDDING INVITTATION</SectionTitle>
-        <h1 className="mt-4 text-2xl font-semibold">
+        <h1 className="mt-4 font-serif text-2xl font-semibold">
           {groomName} <span className="mx-2 text-gray-400">&</span> {brideName}
         </h1>
         <p className="mt-6 text-gray-700">
-          {dateText}
-          {timeText}
+          {dateText} {timeText}
         </p>
         <p className="text-gray-700">{venueName}</p>
       </div>
