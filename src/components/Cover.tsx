@@ -26,7 +26,7 @@ export default function Cover({
         className="w-full aspect-3/4 object-cover"
       />
       <div className="py-10">
-        <SectionTitle>WEDDING INVITTATION</SectionTitle>
+        <SectionTitle>WEDDING INVITATION</SectionTitle>
         <h1 className="mt-4 font-serif text-2xl font-semibold">
           {groomName} <span className="mx-2 text-gray-400">&</span> {brideName}
         </h1>
