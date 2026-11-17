@@ -9,6 +9,7 @@ import AccountSection from "./components/AccountSection";
 import Location from "./components/Location";
 import Share from "./components/Share";
 import Guestbook from "./components/Guestbook";
+import Rsvp from "./components/Rsvp";
 
 function App() {
   const { groom, bride, date, venue, coverImage } = config;
@@ -34,6 +35,7 @@ function App() {
         description="2026년 12월 25일 금요일 오후 12시 30분, OO웨딩홀"
       />
       <Guestbook />
+      <Rsvp />
     </main>
   );
 }
