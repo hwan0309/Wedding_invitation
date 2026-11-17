@@ -15,7 +15,7 @@ function App() {
   const { groom, bride, date, venue, coverImage } = config;
 
   return (
-    <main className="mx-auto max-w-md min-h-screen bg-rose-50 shadow-lg">
+    <main className="mx-auto max-w-md min-h-screen space-y-4 bg-rose-50 p-4">
       <Cover
         groomName={groom.person.name}
         brideName={bride.person.name}
@@ -24,7 +24,7 @@ function App() {
         image={coverImage}
       />
       <Greeting message={config.greeting} groom={groom} bride={bride} />
-      <WeddingInfo date={config.date} venue={config.venue} />
+      <WeddingInfo date={config.date} />
       <Calendar date={date} />
       <Gallery images={config.gallery} />
       <Contact groom={groom} bride={bride} />
