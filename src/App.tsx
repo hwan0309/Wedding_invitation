@@ -29,13 +29,13 @@ function App() {
       <Gallery images={config.gallery} />
       <Contact groom={groom} bride={bride} />
       <AccountSection groom={groom} bride={bride} />
+      <Guestbook />
+      <Rsvp />
       <Location venue={venue} />
       <Share
         title={`${groom.person.name} ♥ ${bride.person.name} 결혼합니다`}
         description="2026년 12월 25일 금요일 오후 12시 30분, OO웨딩홀"
       />
-      <Guestbook />
-      <Rsvp />
     </main>
   );
 }
