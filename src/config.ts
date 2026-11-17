@@ -101,11 +101,11 @@ export const config: WeddingConfig = {
 더없는 기쁨으로 간직하겠습니다.`,
   coverImage: "/images/cover.jpg",
   gallery: [
-    "/images/1.jpg",
-    "/images/2.jpg",
-    "/images/3.jpg",
-    "/images/4.jpg",
-    "/images/5.jpg",
-    "/images/6.jpg",
+    "/images/gallery-1.jpg",
+    "/images/gallery-2.jpg",
+    "/images/gallery-3.jpg",
+    "/images/gallery-4.jpg",
+    "/images/gallery-5.jpg",
+    "/images/gallery-6.jpg",
   ],
 };
