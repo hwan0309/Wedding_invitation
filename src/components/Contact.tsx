@@ -35,7 +35,7 @@ interface ContactProps {
 
 export default function Contact({ groom, bride }: ContactProps) {
   return (
-    <section className="bg-white px-8 py-16">
+    <section className=" px-8 py-16">
       <div className="text-center">
         <SectionTitle>CONTACT</SectionTitle>
       </div>

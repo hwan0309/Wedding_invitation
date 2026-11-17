@@ -58,7 +58,7 @@ export default function Location({ venue }: LocationProps) {
         <a
           href={mapUrl}
           target="_blank"
-          rel="noopener noreFerrer"
+          rel="noopener noreferrer"
           className="rounded-lg border border-gray-300  bg-white py-3 text-gray-700"
         >
           지도 크게보기

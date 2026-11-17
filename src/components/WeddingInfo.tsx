@@ -9,7 +9,7 @@ export default function WeddingInfo({ date }: WeddingInfoProps) {
   const { dateText, timeText } = formatWeddingDate(date);
 
   return (
-    <section className=" bg-white px-8 py-16 text-center">
+    <section className="  px-8 py-16 text-center">
       <SectionTitle>DATE</SectionTitle>
       <p className="mt-4 font-medium text-gray-800">
         {dateText} {timeText}

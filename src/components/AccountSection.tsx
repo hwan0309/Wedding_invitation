@@ -44,7 +44,7 @@ function AccountGroup({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-4 rounded-lg border border-gray-200 bg-white">
+    <div className="mt-4 rounded-lg border border-gray-200">
       <button
         type="button"
         aria-expanded={open}
