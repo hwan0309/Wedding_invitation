@@ -22,7 +22,7 @@ export default function Calendar({ date }: CalendarProps) {
     <section className="px-8 py-16 text-center">
       <SectionTitle>CALENDAR</SectionTitle>
       <p className="mt-4 text-lg font-medium">
-        {year}년{month}월
+        {year}년 {month}월
       </p>
 
       <div className="mt-6 grid grid-cols-7 gap-y-3 text-sm">
@@ -47,7 +47,7 @@ export default function Calendar({ date }: CalendarProps) {
           </span>
         ))}
       </div>
-      <p className="mt-8 text-gray700">{ddayText}</p>
+      <p className="mt-8 text-gray-700">{ddayText}</p>
     </section>
   );
 }
